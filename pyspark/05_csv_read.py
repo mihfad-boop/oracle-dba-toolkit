@@ -188,11 +188,45 @@ df.select(
 ).show()
 
 
-""" Highest-paid employee
+""" Highest-paid employee || Top Earners
 Python """
-print("Showing 3 highest-paid employees:")
+print("Showing 3 highest-paid employees: Top Earners")
 df.orderBy(
 df.salary.desc()
 ).show(3, truncate=False)
 
 
+
+
+print("----------------------------------------------------------------------------------")
+"""
+One observation
+
+Your city average includes:
+
+Plain Text
+NULL NULL
+
+because Anna still exists in that DataFrame. """
+
+""" You have two choices:
+
+Option 1
+
+Use the cleaned DataFrame:
+
+Python """
+clean_df.groupBy("city") \
+.agg(avg("salary")) \
+.show()
+""" Option 2
+
+Filter NULL city values:
+
+Python """
+df.filter(df.city.isNotNull()) \
+.groupBy("city") \
+.agg(avg("salary")) \
+.show()
+
+# This is how Data Engineers usually work.
